@@ -1,15 +1,16 @@
+import { Outlet } from 'react-router-dom';
+
 import MainNavigation from '../components/MainNavigation';
 
-function ErrorPage() {
+function RootLayout() {
   return (
     <>
       <MainNavigation />
       <main>
-        <h1>An error occurred!</h1>
-        <p>Could not find this page!</p>
+        <Outlet />
       </main>
     </>
   );
 }
 
-export default ErrorPage;
+export default RootLayout
