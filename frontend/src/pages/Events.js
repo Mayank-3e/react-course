@@ -1,4 +1,4 @@
-import { useLoaderData } from "react-router-dom";
+import { json, useLoaderData } from "react-router-dom";
 
 import EventsList from "../components/EventsList";
 
@@ -13,11 +13,8 @@ export default EventsPage;
 export const loader = async () => 
 {
   const response = await fetch("http://localhost:8080/events");
-  if (!response.ok) throw new Response
-    (
-      JSON.stringify(
+  if (!response.ok) return json(
         { message: "Internal server error."},
         {status: 500 })
-    )
   else return response;
 }
