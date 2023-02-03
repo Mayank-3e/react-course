@@ -1,22 +1,23 @@
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData } from "react-router-dom";
 
-import EventsList from '../components/EventsList';
+import EventsList from "../components/EventsList";
 
-function EventsPage()
-{
+function EventsPage() {
   const data = useLoaderData();
-  const events=data.events
+  const events = data.events;
 
-  return <EventsList events={events} />
+  return <EventsList events={events} />;
 }
-export default EventsPage
+export default EventsPage;
 
-export const loader=async () =>
+export const loader = async () => 
 {
-  const response = await fetch('http://localhost:8080/events')
-  if (!response.ok)
-  {
-    // ...
-  }
-  else return response
+  const response = await fetch("http://localhost:8080/events");
+  if (!response.ok) throw new Response
+    (
+      JSON.stringify(
+        { message: "Internal server error."},
+        {status: 500 })
+    )
+  else return response;
 }
