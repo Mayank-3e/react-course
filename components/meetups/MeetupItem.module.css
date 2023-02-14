@@ -40,6 +40,10 @@
   border-radius: 4px;
 }
 
+.actions a{
+  text-decoration: none;
+}
+
 .actions button:hover,
 .actions button:active {
   background-color: #ffe2ed;
