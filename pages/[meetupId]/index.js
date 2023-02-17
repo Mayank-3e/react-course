@@ -1,15 +1,22 @@
 import dbconnect from '@/functions/dbconnect';
 import { ObjectId } from 'mongodb';
+import Head from 'next/head';
 import MeetupDetail from '../../components/meetups/MeetupDetail';
 
 function MeetupDetails({meetupData}) {
   return (
-    <MeetupDetail
-      image={meetupData.image}
-      title={meetupData.title}
-      address={meetupData.address}
-      description={meetupData.description}
-    />
+    <>
+      <Head>
+        <title>{meetupData.title}</title>
+        <meta name='description' content={meetupData.description} />
+      </Head>
+      <MeetupDetail
+        image={meetupData.image}
+        title={meetupData.title}
+        address={meetupData.address}
+        description={meetupData.description}
+      />
+    </>
   );
 }
 
