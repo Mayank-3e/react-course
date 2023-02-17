@@ -1,51 +1,43 @@
+import dbconnect from '@/functions/dbconnect';
+import { ObjectId } from 'mongodb';
 import MeetupDetail from '../../components/meetups/MeetupDetail';
 
-function MeetupDetails() {
+function MeetupDetails({meetupData}) {
   return (
     <MeetupDetail
-      image='https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1280px-Stadtbild_M%C3%BCnchen.jpg'
-      title='First Meetup'
-      address='Some Street 5, Some City'
-      description='This is a first meetup'
+      image={meetupData.image}
+      title={meetupData.title}
+      address={meetupData.address}
+      description={meetupData.description}
     />
   );
 }
 
 export async function getStaticPaths()
 {
+  const [client,meetupsCollection]=await dbconnect()
+  const meetups=await meetupsCollection.find({},{_id:1}).toArray()
+  client.close()
+
   return {
     fallback: false,
-    paths:
-    [
-      {
-        params: {
-          meetupId: 'm1',
-        },
-      },
-      {
-        params: {
-          meetupId: 'm2',
-        },
-      },
-    ]
+    paths: meetups.map(meetup=>({ params: {meetupId: meetup._id.toString()} }))
   }
 }
 
 export async function getStaticProps({params})
 {
   const meetupId = params.meetupId;
-  console.log(meetupId);
+  const [client,meetupsCollection]=await dbconnect()
+  const selectedMeetup=await meetupsCollection.findOne({_id: new ObjectId(meetupId)})
+  client.close()
+  selectedMeetup.id=selectedMeetup._id.toString()
+  delete selectedMeetup._id
+
   return {
     props: {
-      meetupData: {
-        image:
-          'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/1280px-Stadtbild_M%C3%BCnchen.jpg',
-        id: meetupId,
-        title: 'First Meetup',
-        address: 'Some Street 5, Some City',
-        description: 'This is a first meetup',
-      },
-    },
+      meetupData: selectedMeetup
+    }
   };
 }
 
