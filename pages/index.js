@@ -1,4 +1,4 @@
-import dbconnect from '@/functions/dbconnect';
+import dbconnect from '@/dbconnect';
 import Head from 'next/head';
 import MeetupList from '../components/meetups/MeetupList';
 

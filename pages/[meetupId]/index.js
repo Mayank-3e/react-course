@@ -1,4 +1,4 @@
-import dbconnect from '@/functions/dbconnect';
+import dbconnect from '@/dbconnect';
 import { ObjectId } from 'mongodb';
 import Head from 'next/head';
 import MeetupDetail from '../../components/meetups/MeetupDetail';

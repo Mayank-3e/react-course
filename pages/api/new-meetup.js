@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb"
+import dbconnect from "@/dbconnect";
 
 export default async function handler(req, res)
 {
@@ -6,13 +6,11 @@ export default async function handler(req, res)
   {
     const data = req.body
 
-    const client = await MongoClient.connect(`mongodb+srv://${process.env.username}:${process.env.password}@cluster0.szwbefi.mongodb.net/meetups?retryWrites=true&w=majority`)
-    const db = client.db()
-    const meetupsCollection = db.collection('meetups')
+    const [client,meetupsCollection]=await dbconnect()
     const result = await meetupsCollection.insertOne(data);
+    client.close();
 
     console.log(result);
-    client.close();
     res.status(201).json({ message: 'Meetup inserted!' });
   }
 }
