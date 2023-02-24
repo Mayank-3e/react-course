@@ -2,8 +2,7 @@ import './Backdrop.css';
 
 const backdrop = (props) =>
 {
-    const classes=['Backdrop', props.show?'BackdropOpen':'BackdropClosed']
-    return <div className={classes.join(' ')}></div>
+    return <div className="Backdrop"></div>
 };
 
 export default backdrop;
