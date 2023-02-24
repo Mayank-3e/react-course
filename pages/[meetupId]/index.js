@@ -19,6 +19,7 @@ function MeetupDetails({meetupData}) {
     </>
   );
 }
+export default MeetupDetails
 
 export async function getStaticPaths()
 {
@@ -27,7 +28,7 @@ export async function getStaticPaths()
   client.close()
 
   return {
-    fallback: false,
+    fallback: "blocking",
     paths: meetups.map(meetup=>({ params: {meetupId: meetup._id.toString()} }))
   }
 }
@@ -47,5 +48,3 @@ export async function getStaticProps({params})
     }
   };
 }
-
-export default MeetupDetails
