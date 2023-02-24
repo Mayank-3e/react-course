@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import "./App.css";
 import Modal from "./components/Modal/Modal";
 import Backdrop from "./components/Backdrop/Backdrop";
